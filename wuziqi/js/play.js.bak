@@ -1,0 +1,72 @@
+function onchoose(_this){
+		$("div.roomlist").css("opacity","0.4");
+		$("div.roomlist").css("background","#cc88bb");
+		$(_this).css("opacity","1.0");
+		$(_this).css("background","green");
+		var data=$(_this).attr("data-room");
+		$(_this).attr("data-choosed",data);
+}
+//点击roomlist函数
+function joinRoom(){
+	if($("[data-choosed]").attr("data-choosed")){
+		var url="./joinRoom.php?room="+$("[data-choosed]").attr("data-choosed");
+		window.location.href=url;
+	}
+}
+function update(str){		// 更新用户名
+	if(str!=null){
+		var value=document.getElementById(str).value;
+		var url="./lib/setSession.php?user="+value;
+		$.get(url,function(data,status){
+			if(status=="success"&&data=="ok"){
+				window.location.reload();
+			}
+		});	
+	}
+}
+function createRoom(){//检测房间名
+		var value=document.getElementById("roomname").value;
+		value=value.replace(/[ ]/g,"")
+		if(value!=null&&value!=""){
+			var url="./lib/checkRoom.php?room="+value;
+			$.get(url,function(data,status){
+				if(status=="success"&&data=="ok"){
+					document.roominfo.action="./createRoom_ok.php";//提交
+					document.roominfo.submit();
+				}
+			});
+		}
+}
+function changeUser(str,roomname){//选择白黑方
+	if(str=="white"){
+		$.post("./lib/changeColor.php", {room:roomname,color:str},
+		function(data,status){
+			if(status=="success"&&data=="ok"){
+				$("#Wstart").hide();//隐藏这些button
+				$("#Bstart").hide();
+				$("#rechoose").show();//显示重选键
+				$("#white_name span:first").append("（我）");
+				$("#black_name span:first").html("黑方");
+			}
+		});
+	}else{
+		$.post("./lib/changeColor.php", {room:roomname,color:str},
+		function(data,status){
+			if(status=="success"&&data=="ok"){
+				$("#Wstart").hide();//隐藏这些button
+				$("#Bstart").hide();
+				$("#rechoose").show();//显示重选键
+				$("#black_name span:first").append("（我）");
+				$("#white_name span:first").html("白方");
+				color=str;
+			}
+		});	
+	}
+}
+function rechoose(){   //重选颜色
+	$("#Wstart").show();//显示这些button
+	$("#Bstart").show();
+	$("#rechoose").hide();//隐藏
+	$("#black_name span:first").html("黑方");
+	$("#white_name span:first").html("白方");
+}

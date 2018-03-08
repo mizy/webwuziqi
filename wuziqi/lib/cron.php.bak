@@ -1,0 +1,13 @@
+<?php
+session_start();
+$room=$_SESSION["room"];
+$sql="CREATE EVENT ".$room." 
+    ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL 1 HOUR
+    DO
+      delete from room where roomname='".$room."'";
+			include("./DB.class.php");
+			$conn=new DB();
+			$result=$conn->query($sql);//删除房间信息
+			echo $sql;
+
+?>
