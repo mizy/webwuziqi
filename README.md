@@ -4,6 +4,7 @@
 ## web五子棋游戏功能文档
 ### 1.	文件目录
 Wuziqi
+```
 ------image     (图片目录)
 ------css			(样式表目录)
 			-----main.css			(css文件)
@@ -36,15 +37,15 @@ Wuziqi
 ------play.php				(游戏大厅页面)
 ------playAI.php				(人机对战页面)
 ------room.php				(房间页面)
+```
 
 
-
-###2.	配置文件
-1．	./lib/DB.class.php
+### 2.	配置文件
+    + 1．	./lib/DB.class.php
 	编辑DB类连接信息，然后导入目录下的wuziqi.sql到数据库中
-2．访问 http://hhpaint.duapp.com/  我已经配置到了BAE里
+    + 2．访问 http://hhpaint.duapp.com/  我已经配置到了BAE里
 
-3.	实现功能
+### 3.	实现功能
  1．	人机对战功能，使用js客户端运行，AI采用估分穷举法实现，
  2．	在线对战功能，采用的是comet长轮询，使用大量ajax访问数据库实现双人游戏通讯，访问间隔是500ms,
  3．	可以选择棋盘大小，通过Map类生成棋盘，通过js交互ajax到数据库中存储落子的坐标
